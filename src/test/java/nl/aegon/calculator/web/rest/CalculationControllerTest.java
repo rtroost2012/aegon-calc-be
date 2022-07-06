@@ -16,11 +16,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -46,7 +48,7 @@ public class CalculationControllerTest {
     @MockBean
     private CalculatorPersistenceService calculatorPersistenceService;
 
-    private CalculationModel sampleCalculatedModel = new CalculationModel(
+    private final CalculationModel sampleCalculatedModel = new CalculationModel(
             1L, CalculationType.ADDITION, 10, 20, 30.0);
 
     /**
@@ -124,5 +126,25 @@ public class CalculationControllerTest {
         var sampleModel = new CalculationModel(1L, CalculationType.DIVISION, 20, 10, 2.0);
         when(calculatorService.divide(sampleModel.getA(), sampleModel.getB())).thenReturn(sampleModel.getResult());
         assertHttpCallArithmetic("/divide", sampleModel);
+    }
+
+    @Test
+    public void testCannotPerformDivisionByZero() throws Exception {
+        final CalculationDTO input = new CalculationDTO();
+        final int a = 15;
+        final int b = 0;
+        input.setA(a);
+        input.setB(b);
+
+        Mockito.when(calculatorService.divide(a, b)).thenThrow(ArithmeticException.class);
+
+        try {
+            mockMvc.perform(post("/divide")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(input)));
+        } catch (NestedServletException ex) {
+            assertTrue(ex.getCause() instanceof ArithmeticException);
+        }
     }
 }

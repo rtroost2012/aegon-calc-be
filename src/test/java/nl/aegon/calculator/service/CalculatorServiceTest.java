@@ -31,9 +31,7 @@ public class CalculatorServiceTest {
 
     @Test
     public void testMultiplicationOfNumbers() {
-        final double overflow = Double.MAX_VALUE + 10;
         assertEquals(calculatorService.multiply(a, b), 200);
-//        assertEquals(calculatorService.multiply(a, Double.MAX_VALUE), overflow);
     }
 
     @Test

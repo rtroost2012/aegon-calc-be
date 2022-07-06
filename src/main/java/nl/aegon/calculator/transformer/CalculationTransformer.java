@@ -3,7 +3,6 @@ package nl.aegon.calculator.transformer;
 import nl.aegon.calculator.model.CalculationModel;
 import nl.aegon.calculator.web.dto.CalculationDTO;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

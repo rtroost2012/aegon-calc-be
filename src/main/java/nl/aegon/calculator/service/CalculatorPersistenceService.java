@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class CalculatorPersistenceService {
 
@@ -29,7 +28,7 @@ public class CalculatorPersistenceService {
      * @param calculation - The calculation to persist
      * @return Whether creation has succeeded
      */
-    public boolean save(CalculationModel calculation) {
-        return calculationRepository.save(calculation).getId() >= 0;
+    public CalculationModel save(CalculationModel calculation) {
+        return calculationRepository.save(calculation);
     }
 }
