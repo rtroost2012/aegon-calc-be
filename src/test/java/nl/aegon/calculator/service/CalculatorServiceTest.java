@@ -1,6 +1,5 @@
 package nl.aegon.calculator.service;
 
-import nl.aegon.calculator.services.SimpleCalculatorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -9,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class SimpleCalculatorServiceTest {
+public class CalculatorServiceTest {
 
-    private final SimpleCalculatorService calculatorService = new SimpleCalculatorService();
+    private final CalculatorService calculatorService = new CalculatorService();
     private final int a = 10;
     private final int b = 20;
 

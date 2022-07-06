@@ -1,6 +1,9 @@
-package nl.aegon.calculator.services;
+package nl.aegon.calculator.service;
 
-public class SimpleCalculatorService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class CalculatorService {
     /**
      * Add two numbers
      * @param a - First number
