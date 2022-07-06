@@ -12,6 +12,10 @@ public class CalculationTransformer {
 
     CalculationTransformer(ModelMapper mapper) {
         this.modelMapper = mapper;
+        this.modelMapper.typeMap(CalculationDTO.class, CalculationModel.class).addMappings(modelMapper -> {
+            modelMapper.skip(CalculationModel::setResult);
+            modelMapper.skip(CalculationModel::setType);
+        });
     }
 
     /**
@@ -31,7 +35,6 @@ public class CalculationTransformer {
      * @return The mapped entity
      */
     public final CalculationModel toModel(CalculationDTO calculationDTO) {
-        return modelMapper.map(calculationDTO, CalculationModel.class); // todo: should skip setResult in mapping
+        return modelMapper.map(calculationDTO, CalculationModel.class);
     }
-
 }

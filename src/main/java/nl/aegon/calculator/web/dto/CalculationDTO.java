@@ -12,13 +12,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CalculationDTO {
     @NotNull
-    private CalculationType type;
-
-    @NotNull
     private int a;
 
     @NotNull
     private int b;
 
+    private CalculationType type;
     private double result;
 }

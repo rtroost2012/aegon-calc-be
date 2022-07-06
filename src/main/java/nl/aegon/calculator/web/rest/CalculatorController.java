@@ -6,12 +6,10 @@ import nl.aegon.calculator.service.CalculatorService;
 import nl.aegon.calculator.transformer.CalculationTransformer;
 import nl.aegon.calculator.web.dto.CalculationDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class CalculatorController {
 
     private final CalculatorService calculatorService;
@@ -27,6 +25,27 @@ public class CalculatorController {
         final CalculationModel calculation = calculationTransformer.toModel(input);
         calculation.setResult(calculatorService.add(input.getA(), input.getB()));
         calculation.setType(CalculationType.ADDITION);
+        return calculationTransformer.toDTO(calculation);
+    }
+    @PostMapping("/subtract")
+    public CalculationDTO subtract(@RequestBody CalculationDTO input) {
+        final CalculationModel calculation = calculationTransformer.toModel(input);
+        calculation.setResult(calculatorService.subtract(input.getA(), input.getB()));
+        calculation.setType(CalculationType.SUBTRACTION);
+        return calculationTransformer.toDTO(calculation);
+    }
+    @PostMapping("/multiply")
+    public CalculationDTO multiply(@RequestBody CalculationDTO input) {
+        final CalculationModel calculation = calculationTransformer.toModel(input);
+        calculation.setResult(calculatorService.multiply(input.getA(), input.getB()));
+        calculation.setType(CalculationType.MULTIPLICATION);
+        return calculationTransformer.toDTO(calculation);
+    }
+    @PostMapping("/divide")
+    public CalculationDTO divide(@RequestBody CalculationDTO input) {
+        final CalculationModel calculation = calculationTransformer.toModel(input);
+        calculation.setResult(calculatorService.divide(input.getA(), input.getB()));
+        calculation.setType(CalculationType.DIVISION);
         return calculationTransformer.toDTO(calculation);
     }
 }
