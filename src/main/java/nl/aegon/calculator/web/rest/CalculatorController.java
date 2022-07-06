@@ -6,7 +6,6 @@ import nl.aegon.calculator.service.CalculatorPersistenceService;
 import nl.aegon.calculator.service.CalculatorService;
 import nl.aegon.calculator.transformer.CalculationTransformer;
 import nl.aegon.calculator.web.dto.CalculationDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
